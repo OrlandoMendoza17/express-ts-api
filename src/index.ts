@@ -1,4 +1,5 @@
 import express from "express"
+import diariesRouter from "./routes/diaries"
 
 const app = express()
 
@@ -8,10 +9,12 @@ const PORT = 3000
 
 app.get("/", (_request, response) => {
   response.status(200).json({
-    message: "It works!"
+    message: "It works on TYPESCRIPT!"
   })
 })
 
+app.use("/diaries", diariesRouter)
+
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`)
+  console.log(`Server is listening on port ${PORT} with typescript`)
 })
