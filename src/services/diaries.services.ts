@@ -11,7 +11,7 @@ export const getEntries = (): NonSensitiveInfo_DiaryEntry[] => (
 )
 
 class DiariesService {
-  getEntries (): NonSensitiveInfo_DiaryEntry[] {
+  getAll (): NonSensitiveInfo_DiaryEntry[] {
     const diariesWithoutComment = diaries.map(({ comment, ...rest }) => ({
       ...rest
     }))
@@ -30,17 +30,31 @@ class DiariesService {
     return newDiary
   }
 
-  findOne (id: number): NonSensitiveInfo_DiaryEntry | undefined {
+  findOne (id: DiaryEntry['id']): NonSensitiveInfo_DiaryEntry {
     const diary = diaries.find((diary) => {
       return diary.id === id
     })
 
-    if (typeof diary !== 'undefined') {
+    if (typeof diary === 'undefined') {
+      throw new Error("That diary doesn't exist!")
+    } else {
       const { comment, ...rest } = diary
       return rest
     }
+  }
 
-    return undefined
+  deleteOne (id: DiaryEntry['id']): string {
+    const diaryIndex = diaries.findIndex((diary) => {
+      return diary.id === id
+    })
+    console.log(id)
+    console.log(diaryIndex)
+    if (diaryIndex === -1 || isNaN(id)) {
+      throw new Error("That diary doesn't exist!")
+    } else {
+      diaries.splice(diaryIndex, 1)
+      return 'It was deleted successfully'
+    }
   }
 }
 

@@ -7,13 +7,19 @@ const diariesService = new DiariesService()
 const router = express.Router()
 
 router.get('/', (_request, response) => {
-  const diaries = diariesService.getEntries()
+  const diaries = diariesService.getAll()
   response.status(200).json(diaries)
 })
 
 router.get('/:id', (request, response) => {
-  const diary = diariesService.findOne(parseInt(request.params.id))
-  response.status(200).json(diary)
+  try {
+    const diary = diariesService.findOne(parseInt(request.params.id))
+    response.status(200).json(diary)
+  } catch (error: any) {
+    response.status(400).json({
+      message: error.message
+    })
+  }
 })
 
 router.post('/', (request, response) => {
@@ -28,9 +34,15 @@ router.post('/', (request, response) => {
   }
 })
 
-// router.delete('/', (_request, response) => {
-//   const diaries = diariesService.getEntries()
-//   response.status(200).json(diaries)
-// })
+router.delete('/:id', (request, response) => {
+  try {
+    const message = diariesService.deleteOne(parseInt(request.params.id))
+    response.status(201).json({ message })
+  } catch (error: any) {
+    response.status(400).json({
+      message: error.message
+    })
+  }
+})
 
 export default router
