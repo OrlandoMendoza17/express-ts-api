@@ -1,0 +1,23 @@
+//Una configuración estandar de eslint para typescript
+npm i ts-standard -D -E
+
+"eslintConfig": {
+  "parserOptions": {
+    // Ademas hay que indicarle al parser dónde está el archivo de configuración de TS
+    "proyect": ["./tsconfig.json"]
+  },
+  // Tenemos que indicarle el linter que estamos utilizando para que la lea la extensión de VS Code
+  "extends": ["./node_modules/ts-standard/eslintrc.json"]
+}
+
+<a href="https://www.youtube.com/watch?v=ZpY5KdGQvwI&t=2280s">
+  Midudev habla sobre ts-standard y la configuración de package.json
+</a>
+
+De esta manera nos ahorramos configuraciones de eslint
+
+//TypeScript no funciona en Runtime. En tiempo de compilado.
+
+// El type.d.ts sólo se usa para declarar definiciones, es decir, tipos "type" e "interface".
+// Si se incluye un tipo "enum" en un archivo de definiciones dará error en el linter ya que los enum sí pueden pasar a 
+// usarse en runtime.
