@@ -1,5 +1,5 @@
 import express from 'express'
-import diariesRouter from './routes/diaries'
+import diariesRouter from './routes/diaries.router'
 
 const app = express()
 
