@@ -1,7 +1,7 @@
-import { NewDiaryEntry } from '../schemas/diaries.schemas'
+// import { NewDiaryEntry } from '../schemas/diaries.schemas'
 import { Visibility, Weather } from '../schemas/enums'
 
-export const toNewDiary = ({ date, weather, comment, visibility }: any): NewDiaryEntry => {
+export const toNewDiary = ({ date, weather, comment, visibility }: any): any => {
   return {
     date: parseDate(date),
     weather: parseWeather(weather),

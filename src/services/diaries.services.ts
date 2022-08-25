@@ -1,17 +1,17 @@
 // import express from "express"
-import { DiaryEntry, NewDiaryEntry, NonSensitiveInfoDiaryEntry } from '../schemas/diaries.schemas'
+import { Diary, NewDiary, NonSensitiveInfoDiary } from '../schemas/diaries.schemas'
 import diariesData from './diaries.json'
 
-const diaries = diariesData as DiaryEntry[] // Array<DiaryEntry>
+const diaries = diariesData as Diary[] // Array<Diary>
 
-export const getEntries = (): NonSensitiveInfoDiaryEntry[] => (
+export const getEntries = (): NonSensitiveInfoDiary[] => (
   diaries.map(({ comment, ...rest }) => ({
     ...rest
   }))
 )
 
 class DiariesService {
-  getAll (): NonSensitiveInfoDiaryEntry[] {
+  getAll (): NonSensitiveInfoDiary[] {
     const diariesWithoutComment = diaries.map(({ comment, ...rest }) => ({
       ...rest
     }))
@@ -19,8 +19,8 @@ class DiariesService {
     return diariesWithoutComment
   }
 
-  create (newDiaryEntry: NewDiaryEntry): DiaryEntry {
-    const newDiary: DiaryEntry = {
+  create (newDiaryEntry: NewDiary): Diary {
+    const newDiary: Diary = {
       id: (diaries.length + 1),
       ...newDiaryEntry
     }
@@ -30,7 +30,7 @@ class DiariesService {
     return newDiary
   }
 
-  findOne (id: DiaryEntry['id']): NonSensitiveInfoDiaryEntry {
+  findOne (id: Diary['id']): NonSensitiveInfoDiary {
     const diary = diaries.find((diary) => {
       return diary.id === id
     })
@@ -43,12 +43,11 @@ class DiariesService {
     }
   }
 
-  deleteOne (id: DiaryEntry['id']): string {
+  deleteOne (id: Diary['id']): string {
     const diaryIndex = diaries.findIndex((diary) => {
       return diary.id === id
     })
-    console.log(id)
-    console.log(diaryIndex)
+
     if (diaryIndex === -1 || isNaN(id)) {
       throw new Error("That diary doesn't exist!")
     } else {

@@ -1,4 +1,5 @@
 import express from 'express'
+import { errorHandler, zodErrorHandler } from './middleware/error.handlers'
 import diariesRouter from './routes/diaries.router'
 
 const app = express()
@@ -14,6 +15,9 @@ app.get('/', (_request, response) => {
 })
 
 app.use('/api/diaries', diariesRouter)
+
+app.use(zodErrorHandler)
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log(`Server is listening on http://localhost:${PORT} with typescript`)
