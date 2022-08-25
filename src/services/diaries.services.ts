@@ -1,17 +1,17 @@
 // import express from "express"
-import { DiaryEntry, NewDiaryEntry, NonSensitiveInfo_DiaryEntry } from '../types'
+import { DiaryEntry, NewDiaryEntry, NonSensitiveInfoDiaryEntry } from '../schemas/diaries.schemas'
 import diariesData from './diaries.json'
 
 const diaries = diariesData as DiaryEntry[] // Array<DiaryEntry>
 
-export const getEntries = (): NonSensitiveInfo_DiaryEntry[] => (
+export const getEntries = (): NonSensitiveInfoDiaryEntry[] => (
   diaries.map(({ comment, ...rest }) => ({
     ...rest
   }))
 )
 
 class DiariesService {
-  getAll (): NonSensitiveInfo_DiaryEntry[] {
+  getAll (): NonSensitiveInfoDiaryEntry[] {
     const diariesWithoutComment = diaries.map(({ comment, ...rest }) => ({
       ...rest
     }))
@@ -30,7 +30,7 @@ class DiariesService {
     return newDiary
   }
 
-  findOne (id: DiaryEntry['id']): NonSensitiveInfo_DiaryEntry {
+  findOne (id: DiaryEntry['id']): NonSensitiveInfoDiaryEntry {
     const diary = diaries.find((diary) => {
       return diary.id === id
     })
