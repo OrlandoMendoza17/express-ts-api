@@ -1,5 +1,5 @@
 import express from 'express'
-import { errorHandler, zodErrorHandler } from './middleware/error.handlers'
+import { errorHandler, httpErrorHandler, zodErrorHandler } from './middleware/error.handlers'
 import diariesRouter from './routes/diaries.router'
 
 const app = express()
@@ -17,6 +17,7 @@ app.get('/', (_request, response) => {
 app.use('/api/diaries', diariesRouter)
 
 app.use(zodErrorHandler)
+app.use(httpErrorHandler)
 app.use(errorHandler)
 
 app.listen(PORT, () => {

@@ -1,8 +1,10 @@
 // import express from "express"
 import { Diary, NewDiary, NonSensitiveInfoDiary } from '../schemas/diaries.schemas'
-import diariesData from './diaries.json'
+import diariesData from './diaries.json' // Array<Diary>
+import createError from 'http-errors'
+// import boom from '@hapi/boom'
 
-const diaries = diariesData as Diary[] // Array<Diary>
+const diaries = diariesData as Diary[]
 
 export const getEntries = (): NonSensitiveInfoDiary[] => (
   diaries.map(({ comment, ...rest }) => ({
@@ -36,7 +38,7 @@ class DiariesService {
     })
 
     if (typeof diary === 'undefined') {
-      throw new Error("That diary doesn't exist!")
+      throw new createError.NotFound("That diary doesn't exist!")
     } else {
       const { comment, ...rest } = diary
       return rest
@@ -49,7 +51,7 @@ class DiariesService {
     })
 
     if (diaryIndex === -1 || isNaN(id)) {
-      throw new Error("That diary doesn't exist!")
+      throw new createError.NotFound("That diary doesn't exist!")
     } else {
       diaries.splice(diaryIndex, 1)
       return 'It was deleted successfully'
