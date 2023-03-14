@@ -21,3 +21,60 @@ De esta manera nos ahorramos configuraciones de eslint
 // El type.d.ts sólo se usa para declarar definiciones, es decir, tipos "type" e "interface".
 // Si se incluye un tipo "enum" en un archivo de definiciones dará error en el linter ya que los enum sí pueden pasar a 
 // usarse en runtime.
+
+===================================================================
+                  Comandos para correr Docker
+===================================================================
+// -d significa detach. Correr en segundo plano
+// docker-compose up -d <service-name>
+
+// Correr y colocar en segundo plano
+$ docker-compose up -d postgres
+
+// Para inspeccionar los servicios que están corriendo
+$ docker-compose ps
+
+
+// Para parar los servicios que están corriendo
+// docker-compose down <service-name>
+$ docker-compose down
+
+// Abrir la terminal bash del contenedor
+$ docker-compose exec <service-name> bash
+$ docker-compose exec postgres bash
+
+    // Conectarse a la base de datos dentro del contenedor
+    $ psql -h <host> -d <db-name> -U <user-name>
+    $ psql -h localhost -d my_store -U nico
+    
+        //Ver la estructura de la base de datos
+        \d+
+        
+        //Salirse de la base de datos
+        \q
+      
+    // Salirse de la terminal del contenedor
+    $ exit
+  
+  
+
+// Volumenes
+// Los contenedores de docker no tienen persistencia de datos, es decir que
+// cuando deja de ejecutarse todo lo que estaba adentro de él se borra.
+
+// Para esto existen los volumenes los cuales guardan información como la de
+// base de datos a la hora de desarrollar.
+
+// NOTA: Las carpetas de volumenes deben guardarse en el .gitignore
+
+
+// Crear un Server en psql 
+
+// buscamos la dirección "IPAddress" de la base de datos corriendo
+$ docker inspect <container-id>
+
+
+
+// FRASE:
+// No tienen que programar para solucionar problemas
+// Tienen que programar para crear soluciones
